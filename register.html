@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户注册页面</title>
+		<script type="text/javascript" src="js/jquery-1.11.0.min.js" ></script>
+		<style>
+			.error{}
+			.success{}
+		</style>
+		<script>
+			$(function(){
+				var cities=[["杭州市","绍兴市","温州市","义乌市","嘉兴市"],
+					["南京市","苏州市","扬州市","无锡市"],
+					["武汉市","襄阳市","荆州市","宜昌市","恩施"],
+					["石家庄市","唐山市","保定市","邢台市","廊坊市"],
+					["长春市","吉林市","四平市","延边市"]];
+				$("#province").change(function(){
+					$("#city").get(0).options.length=1;
+					var value=$(this).val();
+					$(cities).each(function(i,n){
+						if(value==i){
+							$(n).each(function(j,m){
+								$("#city").append("<option value='"+j+"'>"+m+"</option>");
+							});
+							
+						}
+					});
+				});
+				
+				
+			});
+			$(function(){
+				$("form input").blur(function(){
+					
+					if($(this).is("#username")){
+						if($(this).val()==""){
+							alert("用户名不能为空!!!");
+						}
+					}
+					if($(this).is("#password")){
+						if($(this).val()==""){
+							alert("密码不能为空!!!");
+						}
+					}
+					if($(this).is("#truename")){
+						if($(this).val()==""){
+							alert("真实姓名不能为空!!!");
+						}
+					}
+					if($(this).is("#age")){
+						if($(this).val()==""){
+							alert("年龄不能为空!!!");
+						}else if(!$(this).val().match("^[0-9]*$")){
+							alert("年龄只能为数字");
+						}
+					}
+					
+				});
+			});
+			$(function(){
+				
+				$("form").submit(function(){
+												
+						
+						if($("#username").val()==""){
+							alert("用户名不能为空!!!");
+							return false;
+						}else if($("#password").val()==""){
+							alert("密码不能为空!!!");
+							return false;
+						}else if($("#truename").val()==""){
+							alert("真实姓名不能为空!!!");
+							return false;
+						}else if($("#age").val()==""){
+							alert("年龄不能为空!!!");
+							return false;
+						}else if($("input:checked[type='radio']").length==0){
+							alert("性别不能为空!!!");
+							return false;
+						}else if($("input:checked[type='checkbox']").length==0){
+							alert("复选框不能为空!!!");
+							return false;
+						}else{
+							
+							var val1=$("#province").val();
+							var val2=$("#city").val();
+							if(val1==""||val2==""){
+								alert("省市不能为空!!!")
+								return false;
+							}else{
+								return true;
+							}
+							
+						
+						}
+						
+						
+				});
+			});
+		</script>
+	</head>
+	<body>
+		 <form action="index.html" id="iform" method="get">
+		<table border="1px" style="margin: 0px auto;">
+			<tr>
+			<td colspan="2"><center>用户注册</center></td>
+			</tr>
+			<tr>
+			<td>用户名</td>
+			<td><input type="text" name="username" id="username" value=""/></td>
+			</tr>
+			<tr>
+			<td>密码</td>
+			<td><input type="password" name="password" id="password" value=""/></td>
+			</tr>
+			<tr>
+			<td>真实姓名</td>
+			<td><input type="text" name="truename" id="truename" value=""/></td>
+			</tr>
+			<tr>
+			<td>年龄</td>
+			<td><input type="text" name="age"/ id="age" value=""></td>
+			</tr>
+			<tr>
+			<td>性别</td>
+			<td><input type="radio" name="sex" value="man" />男<input type="radio" name="sex" value="woman"/>女</td>
+			</tr>
+			<tr>
+			<td>爱好</td>
+			<td>
+				<input type="checkbox" name="hobby" value="篮球"/>篮球
+				<input type="checkbox" name="hobby" value="足球" checked="checked"/>足球
+				<input type="checkbox" name="hobby" value="网球" checked="checked"/>网球
+			</td>
+			</tr>
+			<tr>
+			<td>所在地</td>
+			<td>
+			省:<select name="province" id="province">
+				<option value="">--请选择--</option>
+				<option value="0">浙江省</option>
+				<option value="1">江苏省</option>
+				<option value="2">湖北省</option>
+				<option value="3">河北省</option>
+				<option value="4">吉林省</option>
+				</select>
+			市:<select name="city" id="city">
+				<option value="">--请选择--</option>
+				</select>
+			</td>
+			</tr>
+			<tr>
+			<td>头像</td>
+			<td><input type="file" name="file" value=""/></td>
+			</tr>
+			<tr>
+			<td>备注</td>
+			<td><textarea name="info" style="width: 200px;height: 40px;" value="">自我介绍</textarea></td>
+			</tr>
+			<tr>
+			<td colspan="2">
+				<input type="submit" value="注册" />
+				<input type="reset" value="重置" id="reset"/>
+			</td>
+			
+			</tr>
+		</table>    
+    </form>
+	</body>
+</html>
